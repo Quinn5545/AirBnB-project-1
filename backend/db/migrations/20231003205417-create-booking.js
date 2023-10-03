@@ -1,4 +1,5 @@
 "use strict";
+/** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -8,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      "Users",
+      "Bookings",
       {
         id: {
           allowNull: false,
@@ -16,26 +17,28 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        firstName: {
-          type: Sequelize.STRING,
+        spotId: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: "Spots", //actually refers to the table
+            key: "id",
+          },
           allowNull: false,
         },
-        lastName: {
-          type: Sequelize.STRING,
+        userId: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: "Users", //actually refers to the table
+            key: "id",
+          },
           allowNull: false,
         },
-        username: {
-          type: Sequelize.STRING(30),
+        startDate: {
+          type: Sequelize.DATE,
           allowNull: false,
-          unique: true,
         },
-        email: {
-          type: Sequelize.STRING(256),
-          allowNull: false,
-          unique: true,
-        },
-        hashedPassword: {
-          type: Sequelize.STRING.BINARY,
+        endDate: {
+          type: Sequelize.DATE,
           allowNull: false,
         },
         createdAt: {
@@ -52,9 +55,8 @@ module.exports = {
       options
     );
   },
-
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    options.tableName = "Bookings";
     return queryInterface.dropTable(options);
   },
 };

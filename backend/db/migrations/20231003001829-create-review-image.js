@@ -1,4 +1,5 @@
 "use strict";
+/** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -8,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      "Users",
+      "ReviewImages",
       {
         id: {
           allowNull: false,
@@ -16,26 +17,16 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        firstName: {
+        reviewId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: "Reviews",
+            key: "id",
+          },
+        },
+        url: {
           type: Sequelize.STRING,
-          allowNull: false,
-        },
-        lastName: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        username: {
-          type: Sequelize.STRING(30),
-          allowNull: false,
-          unique: true,
-        },
-        email: {
-          type: Sequelize.STRING(256),
-          allowNull: false,
-          unique: true,
-        },
-        hashedPassword: {
-          type: Sequelize.STRING.BINARY,
           allowNull: false,
         },
         createdAt: {
@@ -52,9 +43,8 @@ module.exports = {
       options
     );
   },
-
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    options.tableName = "ReviewImages";
     return queryInterface.dropTable(options);
   },
 };
