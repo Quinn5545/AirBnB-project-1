@@ -17,11 +17,11 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         firstName: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(256),
           allowNull: false,
         },
         lastName: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(256),
           allowNull: false,
         },
         username: {
