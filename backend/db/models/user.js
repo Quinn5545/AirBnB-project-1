@@ -28,10 +28,18 @@ module.exports = (sequelize, DataTypes) => {
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: [1, 256],
+          // isNumeric: false, //not going to include because of elon musks son
+        },
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: [1, 256],
+          // isNumeric: false, //not going to include because of elon musks son
+        },
       },
       username: {
         type: DataTypes.STRING,
