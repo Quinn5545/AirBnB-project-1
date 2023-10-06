@@ -1,5 +1,5 @@
 const express = require("express");
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 // const bcrypt = require("bcryptjs");
 const { requireAuth } = require("../../utils/auth.js");
 
@@ -9,6 +9,7 @@ const {
   SpotImage,
   User,
   ReviewImage,
+  Booking,
 } = require("../../db/models");
 
 const router = express.Router();
@@ -368,7 +369,7 @@ router.delete("/:spotId", requireAuth, async (req, res) => {
     const { spotId } = req.params;
     const ownerId = req.user.id;
 
-    console.log(req.user.id);
+    // console.log(req.user.id);
 
     const deletedSpot = await Spot.findByPk(spotId);
 
@@ -469,5 +470,125 @@ router.post("/:spotId/reviews", requireAuth, async (req, res) => {
     return res.status(400).json({ message: "Can't find the spot specified" });
   }
 });
+
+// GET all bookings for a spot based on the spots id
+router.get("/:spotId/bookings", requireAuth, async (req, res) => {
+  try {
+    const ownerId = req.user.id;
+    const { spotId } = req.params;
+    console.log(spotId);
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+      return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    if (spot.ownerId === ownerId) {
+      const bookings = await Booking.findAll({
+        where: { spotId },
+        include: [
+          {
+            model: User,
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+
+      const formattedBookings = bookings.map((booking) => ({
+        User: booking.User,
+        id: booking.id,
+        spotId: booking.spotId,
+        userId: booking.userId,
+        startDate: booking.startDate,
+        endDate: booking.endDate,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt,
+      }));
+
+      return res.status(200).json({ Bookings: formattedBookings });
+    } else {
+      const bookings = await Booking.findAll({
+        where: { spotId },
+        attributes: ["spotId", "startDate", "endDate"],
+      });
+      res.status(200).json({ bookings });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "Can't find the spot specified" });
+  }
+});
+
+//POST create a booking from a spot based on thee spots id
+router.post("/:spotId/bookings", requireAuth, async (req, res) => {
+  try {
+    const ownerId = req.user.id;
+    const userId = req.user.id;
+    const { spotId } = req.params;
+    const { startDate, endDate } = req.body;
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+      return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    if (new Date(startDate) >= new Date(endDate)) {
+      return res.status(400).json({
+        message: "Bad Request",
+        errors: {
+          endDate: "endDate cannot be on or before startDate",
+        },
+      });
+    }
+
+    if (ownerId === spot.ownerId) {
+      return res
+        .status(403)
+        .json("You own this spot, let somebody else book it");
+    } else {
+      const existingBooking = await Booking.findOne({
+        where: {
+          spotId,
+          [Op.or]: [
+            {
+              startDate: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+            {
+              endDate: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+          ],
+        },
+      });
+
+      if (existingBooking) {
+        return res.status(403).json({
+          message: "Sorry, this spot is already booked for the specified dates",
+          errors: {
+            startDate: "Start date conflicts with an existing booking",
+            endDate: "End date conflicts with an existing booking",
+          },
+        });
+      }
+      const newBooking = await Booking.create({
+        spotId,
+        userId,
+        startDate,
+        endDate,
+      });
+
+      res.status(201).json(newBooking);
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "Can't find the spot specified" });
+  }
+});
+
 
 module.exports = router;
