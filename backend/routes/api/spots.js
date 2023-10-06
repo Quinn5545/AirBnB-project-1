@@ -17,7 +17,24 @@ const router = express.Router();
 // GET all spots
 router.get("/", async (req, res) => {
   try {
-    // Query the database to fetch all spots
+    const {
+      page = 1,
+      size = 20,
+      minLat,
+      maxLat,
+      minLng,
+      maxLng,
+      minPrice,
+      maxPrice,
+    } = req.query;
+
+    // Parse the page and size values to ensure they are integers
+    const pageNumber = parseInt(page, 10);
+    const pageSize = parseInt(size, 10);
+
+    // Calculate the offset based on pageNumber and pageSize
+    const offset = (pageNumber - 1) * pageSize;
+
     const spots = await Spot.findAll({
       include: [
         {
@@ -27,6 +44,8 @@ router.get("/", async (req, res) => {
           model: Review,
         },
       ],
+      limit: pageSize,
+      offset: offset,
     });
 
     let spotsList = [];
@@ -54,8 +73,13 @@ router.get("/", async (req, res) => {
       delete spot.Reviews;
       delete spot.SpotImages;
     });
+    const response = {
+      Spots: spotsList,
+      page: pageNumber,
+      size: pageSize,
+    };
 
-    res.json({ spotsList });
+    res.json(response);
   } catch (error) {
     console.error("Error fetching spots:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -589,6 +613,5 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     return res.status(400).json({ message: "Can't find the spot specified" });
   }
 });
-
 
 module.exports = router;
