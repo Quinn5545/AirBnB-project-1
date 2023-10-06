@@ -23,10 +23,22 @@ module.exports = {
           stars: 5,
         },
         {
+          spotId: 1,
+          userId: 1,
+          review: "it's sorta lit -Travis Scott",
+          stars: 3,
+        },
+        {
           spotId: 2,
           userId: 2,
           review: "it's not lit -(not)Travis Scott",
           stars: 1,
+        },
+        {
+          spotId: 2,
+          userId: 2,
+          review: "it's decently lit -Travis Scott",
+          stars: 3,
         },
       ],
       {

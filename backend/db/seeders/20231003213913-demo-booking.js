@@ -28,6 +28,18 @@ module.exports = {
           startDate: "2023-10-02",
           endDate: "2023-10-22",
         },
+        {
+          spotId: 2,
+          userId: 2,
+          startDate: "2023-10-01",
+          endDate: "2023-10-11",
+        },
+        {
+          spotId: 2,
+          userId: 2,
+          startDate: "2023-10-02",
+          endDate: "2023-10-22",
+        },
       ],
       {
         validate: true, //make sure this is included for every bulkCreate
