@@ -3,7 +3,13 @@ const express = require("express");
 // const bcrypt = require("bcryptjs");
 const { requireAuth } = require("../../utils/auth.js");
 
-const { Spot, Review, SpotImage, User } = require("../../db/models");
+const {
+  Spot,
+  Review,
+  SpotImage,
+  User,
+  ReviewImage,
+} = require("../../db/models");
 
 const router = express.Router();
 
@@ -123,7 +129,7 @@ router.post("/", requireAuth, async (req, res) => {
 router.post("/:spotId/images", requireAuth, async (req, res) => {
   try {
     const { spotId } = req.params;
-    const { ownerId } = req.user;
+    const ownerId = req.user.id;
     const { url, preview } = req.body;
 
     const spot = await Spot.findByPk(spotId);
@@ -140,11 +146,11 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
       return res.status(404).json({ message: "Spot not found" });
     }
 
-    // if (spot.ownerId !== ownerId) {
-    //   return res.status(403).json({
-    //     message: "You are not authorized to add an image to this spot",
-    //   });
-    // }
+    if (spot.ownerId !== ownerId) {
+      return res.status(403).json({
+        message: "You are not authorized to add an image to this spot",
+      });
+    }
 
     const newImage = new SpotImage({
       spotId,
@@ -331,24 +337,25 @@ router.put("/:spotId", requireAuth, async (req, res) => {
       price,
     });
 
-    const updatedSpot = await Spot.findByPk(spotId, {
-      attributes: [
-        "id",
-        "ownerId",
-        "address",
-        "city",
-        "state",
-        "country",
-        "lat",
-        "lng",
-        "name",
-        "description",
-        "price",
-        "createdAt",
-        "updatedAt",
-      ],
-    });
-    res.json(updatedSpot);
+    // TODO verify that this is not needed
+    // const updatedSpot = await Spot.findByPk(spotId, {
+    //   attributes: [
+    //     "id",
+    //     "ownerId",
+    //     "address",
+    //     "city",
+    //     "state",
+    //     "country",
+    //     "lat",
+    //     "lng",
+    //     "name",
+    //     "description",
+    //     "price",
+    //     "createdAt",
+    //     "updatedAt",
+    //   ],
+    // });
+    res.json(spot);
   } catch (error) {
     console.error(error);
     return res.status(400).json({ message: "Can't find the spot specified" });
@@ -382,6 +389,85 @@ router.delete("/:spotId", requireAuth, async (req, res) => {
     res.status(404).json({
       message: "Spot couldn't be found",
     });
+  }
+});
+
+// GET all reviews by a spots id
+router.get("/:spotId/reviews", async (req, res) => {
+  try {
+    const { spotId } = req.params;
+
+    const reviews = await Review.findByPk(spotId, {
+      include: [
+        {
+          model: User,
+          attributes: ["id", "firstName", "lastName"],
+        },
+        {
+          model: ReviewImage,
+          attributes: ["id", "url"],
+        },
+      ],
+    });
+
+    if (!reviews) {
+      return res.status(404).json({ message: "Spot not found" });
+    }
+
+    res.status(200).json({ Reviews: [reviews] });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "Can't find the spot specified" });
+  }
+});
+
+// POST create a review for a spot based on the spots id
+router.post("/:spotId/reviews", requireAuth, async (req, res) => {
+  const { spotId } = req.params;
+  const { review, stars } = req.body;
+  const userId = req.user.id;
+  try {
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+      return res.status(404).json({ message: "Spot not found" });
+    }
+
+    const existingReview = await Review.findOne({
+      where: {
+        spotId,
+        userId,
+      },
+    });
+
+    if (!review || stars > 5 || stars < 1) {
+      return res.status(400).json({
+        message: "Bad Request",
+        errors: {
+          review: "Review text is required",
+          stars: "Stars must be an integer from 1 to 5",
+        },
+      });
+    }
+
+    if (existingReview) {
+      //TODO see if we want to put a 403 or a 500 status code here
+      return res.status(500).json({
+        message: "User already has a review for this spot",
+      });
+    }
+    // const newReview = await Review.findByPk(spotId, {});
+    const newReview = await Review.create({
+      spotId,
+      userId,
+      review,
+      stars,
+    });
+
+    res.status(201).json(newReview);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "Can't find the spot specified" });
   }
 });
 
