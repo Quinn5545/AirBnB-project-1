@@ -182,13 +182,12 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
     res.status(200).json({
       message: "Successfully deleted",
     });
-
-    
-
-
-
-
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({
+      message: "Review couldn't be found",
+    });
+  }
 });
 
 module.exports = router;
