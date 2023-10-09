@@ -87,22 +87,25 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           isNumeric: true,
+          min: -180,
+          max: 180,
         },
       },
       lng: {
         type: DataTypes.DECIMAL,
         allowNull: false,
         unique: true,
-
         validate: {
           isNumeric: true,
+          min: -180,
+          max: 180,
         },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          len: [1, 256],
+          len: [1, 50],
         },
       },
       description: {

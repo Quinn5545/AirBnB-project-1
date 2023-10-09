@@ -96,7 +96,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
         [Op.not]: {
           id: booking.id, // excludes the current booking from the conflict check
         },
-        [Op.or]: [
+        [Op.and]: [
           {
             startDate: {
               [Op.between]: [startDate, endDate],
@@ -140,13 +140,19 @@ router.delete("/:bookingId", requireAuth, async (req, res) => {
     const { bookingId } = req.params;
     const { startDate, endDate } = req.body;
 
-    const deletedBooking = await Booking.findByPk(bookingId);
+    const deletedBooking = await Booking.findByPk(bookingId, {
+      include: Spot,
+    });
 
     if (!deletedBooking) {
       return res.status(404).json({
         message: "Booking couldn't be found",
       });
     }
+
+    // console.log(userId);
+    // console.log(deletedBooking.userId);
+    // console.log(deletedBooking.Spot.ownerId);
 
     if (
       deletedBooking.userId !== userId &&
