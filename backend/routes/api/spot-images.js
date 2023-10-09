@@ -28,6 +28,9 @@ router.delete("/:spotImageId", requireAuth, async (req, res) => {
 
     const spot = await Spot.findByPk(image.spotId);
 
+    console.log(userId);
+    console.log(spot.ownerId);
+
     if (!spot || spot.ownerId !== userId) {
       return res
         .status(403)

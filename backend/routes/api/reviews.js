@@ -62,7 +62,18 @@ router.get("/current", requireAuth, async (req, res) => {
       ],
     });
 
-    res.json({ Review: reviews });
+    const reviewsWithPreviewImages = reviews.map((review) => {
+      const spot = review.Spot.toJSON();
+      spot.previewImage = review.Spot.SpotImages[0].url; // Assuming one image per spot
+      delete spot.SpotImages;
+
+      return {
+        ...review.toJSON(),
+        Spot: spot,
+      };
+    });
+
+    res.json({ Review: reviewsWithPreviewImages });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -79,11 +90,13 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     const review = await Review.findByPk(reviewId);
 
     if (!review) {
-      return res.status(404).json({ message: "Review not found" });
+      return res.status(404).json({
+        message: "Review couldn't be found",
+      });
     }
     // console.log(ownerId);
     // console.log(review.id);
-    if (ownerId !== review.id) {
+    if (ownerId !== review.userId) {
       return res.status(403).json({
         message: "You are not authorized to add images to this place",
       });
@@ -95,7 +108,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
 
     const maxImagesAllowed = 10;
 
-    if (existingImagesCount > maxImagesAllowed) {
+    if (existingImagesCount >= maxImagesAllowed) {
       return res.status(403).json({
         message: "Maximum number of images for this resource was reached",
       });

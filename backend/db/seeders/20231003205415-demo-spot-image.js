@@ -18,42 +18,42 @@ module.exports = {
       [
         {
           spotId: 1,
-          url: "https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_architecturaldigest.png,fl_progressive,g_face,h_1080,q_80,w_1920/v1645135325/architecturaldigest_on-the-market-inside-a-23-dollars-million-mega-mansion-surrounded-by-a-lake.jpg",
+          url: "111https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_architecturaldigest.png,fl_progressive,g_face,h_1080,q_80,w_1920/v1645135325/architecturaldigest_on-the-market-inside-a-23-dollars-million-mega-mansion-surrounded-by-a-lake.jpg",
           preview: true,
         },
         {
           spotId: 1,
-          url: "https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_architecturaldigest.png,fl_progressive,g_face,h_1080,q_80,w_1920/v1645135325/architecturaldigest_on-the-market-inside-a-23-dollars-million-mega-mansion-surrounded-by-a-lake.jpg",
+          url: "2222https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_architecturaldigest.png,fl_progressive,g_face,h_1080,q_80,w_1920/v1645135325/architecturaldigest_on-the-market-inside-a-23-dollars-million-mega-mansion-surrounded-by-a-lake.jpg",
           preview: true,
         },
         {
           spotId: 2,
-          url: "https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
+          url: "3333https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
           preview: true,
         },
         {
           spotId: 2,
-          url: "https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
+          url: "4444https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
           preview: true,
         },
         {
           spotId: 3,
-          url: "https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
+          url: "5555https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
           preview: true,
         },
         {
           spotId: 3,
-          url: "https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
+          url: "6666https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
           preview: true,
         },
         {
           spotId: 4,
-          url: "https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
+          url: "7777https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
           preview: true,
         },
         {
           spotId: 4,
-          url: "https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
+          url: "8888https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
           preview: true,
         },
       ],
