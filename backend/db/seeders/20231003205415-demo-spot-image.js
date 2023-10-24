@@ -18,42 +18,82 @@ module.exports = {
       [
         {
           spotId: 1,
-          url: "111https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_architecturaldigest.png,fl_progressive,g_face,h_1080,q_80,w_1920/v1645135325/architecturaldigest_on-the-market-inside-a-23-dollars-million-mega-mansion-surrounded-by-a-lake.jpg",
+          url: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           preview: true,
         },
         {
           spotId: 1,
-          url: "2222https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_architecturaldigest.png,fl_progressive,g_face,h_1080,q_80,w_1920/v1645135325/architecturaldigest_on-the-market-inside-a-23-dollars-million-mega-mansion-surrounded-by-a-lake.jpg",
+          url: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           preview: true,
         },
         {
           spotId: 2,
-          url: "3333https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
+          url: "https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
           preview: true,
         },
         {
           spotId: 2,
-          url: "4444https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
+          url: "https://robbreport.com/wp-content/uploads/2023/07/DJI_0661.jpg",
           preview: true,
         },
         {
           spotId: 3,
-          url: "5555https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
+          url: "https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
           preview: true,
         },
         {
           spotId: 3,
-          url: "6666https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
+          url: "https://thumbor.bigedition.com/img/Z-vEdZNmHPOuRj_0VQVcTunprAE=/874x404/filters:format(webp):quality(80)/granite-web-prod/c5/31/c531a5417a4c406387e09348dba5a923.jpeg",
           preview: true,
         },
         {
           spotId: 4,
-          url: "7777https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
+          url: "https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
           preview: true,
         },
         {
           spotId: 4,
-          url: "8888https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
+          url: "https://www.jamesedition.com/stories/wp-content/uploads/2020/12/1_Israel.jpg",
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: "https://images.pexels.com/photos/3554424/pexels-photo-3554424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: "https://images.pexels.com/photos/3554424/pexels-photo-3554424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: "https://images.pexels.com/photos/1974596/pexels-photo-1974596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 6,
+          url: "https://images.pexels.com/photos/1974596/pexels-photo-1974596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: "https://images.pexels.com/photos/1560065/pexels-photo-1560065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 7,
+          url: "https://images.pexels.com/photos/1560065/pexels-photo-1560065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: "https://images.pexels.com/photos/2980955/pexels-photo-2980955.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          preview: true,
+        },
+        {
+          spotId: 8,
+          url: "https://images.pexels.com/photos/2980955/pexels-photo-2980955.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           preview: true,
         },
       ],
