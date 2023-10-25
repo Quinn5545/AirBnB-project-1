@@ -1,0 +1,52 @@
+.spot-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 1024px;
+  justify-content: space;
+  align-content: center;
+  align-items: center;
+}
+
+.spot-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.spot-item:hover {
+  color: orangered;
+  cursor: pointer;
+}
+
+.spot-image {
+  width: 225px;
+  height: 200px;
+  display: block;
+  margin: 0;
+}
+
+.spot-info {
+  margin-top: 10px;
+}
+
+.fa-solid.fa-star {
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .spot-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .spot-list {
+    grid-template-columns: 1fr; /* Set to 1 column for even smaller devices */
+  }
+}

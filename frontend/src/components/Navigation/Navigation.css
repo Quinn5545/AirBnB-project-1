@@ -1,3 +1,36 @@
 .hidden {
   display: none;
 }
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+.logo-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 0 20px; */
+}
+
+.logo {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: orangered;
+}
+
+.line-bar {
+  height: 1px;
+  background-color: black;
+  margin: 10px;
+}
