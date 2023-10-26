@@ -1,0 +1,157 @@
+.nameCity-box {
+  margin: 20px 0 20px 50px;
+}
+
+.spotName {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.image-box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.large-image {
+  width: 450px;
+  height: 300px;
+}
+
+.smaller-image {
+  width: 225px;
+  height: 147.5px;
+}
+
+.large-img-box {
+  margin-right: 5px; /* Adjust the margin to control the spacing */
+}
+
+.smaller-img-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px; /* Adjust the gap value to control the spacing between smaller images */
+}
+
+.description-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 50px;
+}
+
+.host {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: normal;
+  margin-top: 20px;
+}
+
+.price-star-reserve-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  width: 300px;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.price-star {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* margin: 10px; */
+  width: 100%;
+  margin-top: 10px;
+}
+
+.dollars {
+  font-size: 24px;
+}
+.price {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stars {
+  font-size: 16px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.reserve-button {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.reserve-button a {
+  display: flex;
+  padding: 10px 20px;
+  background-color: orangered;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.reserve-button a:hover {
+  background-color: darkred;
+}
+
+.rev-stars {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.review-box {
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.reviewer-name {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.stay-month-year {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: grey;
+}
+
+.review-text {
+  margin-bottom: 10px;
+}
+
+.add-review,
+.delete-review {
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: orangered;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-review:hover,
+.delete-review:hover {
+  background-color: darkred;
+}

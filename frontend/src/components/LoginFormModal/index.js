@@ -3,6 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -26,29 +27,39 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+      <div className="login-box">
+        <h1 className="title">Log In</h1>
         {errors.message && <p>{errors.message}</p>}
-        <button type="submit">Log In</button>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <input
+              className="username"
+              placeholder="Username or Email"
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            <input
+              className="password"
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+
+          <button className="login-button" type="submit">
+            Log In
+          </button>
+          <div className="demo">
+            <NavLink to="#">Demo User</NavLink>
+          </div>
+        </form>
+      </div>
     </>
   );
 }

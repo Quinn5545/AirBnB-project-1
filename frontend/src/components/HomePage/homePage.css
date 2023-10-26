@@ -18,9 +18,10 @@
   text-align: center;
 }
 
-.spot-item:hover {
+.spot-link:hover {
   color: orangered;
   cursor: pointer;
+  border: 1px solid orangered;
 }
 
 .spot-image {
@@ -30,13 +31,55 @@
   margin: 0;
 }
 
+.spot-link {
+  color: black;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid transparent; /* Add a transparent border by default */
+  transition: border 0.3s;
+  transition: color 0.3s;
+}
+
 .spot-info {
   margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cityState {
+  font-size: 14px;
+}
+
+.price-night {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+.price {
+  font-size: 14px;
 }
 
 .fa-solid.fa-star {
   color: #ffd700;
   margin-right: 5px;
+}
+
+.spot-link .tooltip {
+  visibility: hidden;
+  background-color: orangered;
+  color: #fff;
+  text-align: justify;
+  position: absolute;
+  top: 0.5rem;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.spot-link:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (max-width: 768px) {

@@ -19,6 +19,11 @@
   height: 50px;
   margin-right: 10px;
 }
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
 .navLink {
   display: flex;
