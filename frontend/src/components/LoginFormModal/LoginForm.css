@@ -48,6 +48,13 @@ label {
   width: 75%;
 }
 
+.login-button.disabled {
+  background-color: #ccc;
+  color: #999;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .login-button:hover {
   background-color: darkred;
 }

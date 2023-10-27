@@ -83,7 +83,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       lat: {
         type: DataTypes.DECIMAL,
-        allowNull: false,
         unique: true,
         validate: {
           isNumeric: true,
@@ -93,7 +92,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       lng: {
         type: DataTypes.DECIMAL,
-        allowNull: false,
         unique: true,
         validate: {
           isNumeric: true,

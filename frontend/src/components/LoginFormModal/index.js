@@ -25,6 +25,13 @@ function LoginFormModal() {
       });
   };
 
+  const loginDemo = () => {
+    setCredential("Demo-lition");
+    setPassword("password0");
+  };
+
+  const isLoginButtonDisabled = !credential || !password;
+
   return (
     <>
       <div className="login-box">
@@ -52,11 +59,19 @@ function LoginFormModal() {
             />
           </label>
 
-          <button className="login-button" type="submit">
+          <button
+            className={`login-button ${
+              isLoginButtonDisabled ? "disabled" : ""
+            }`}
+            type="submit"
+            disabled={isLoginButtonDisabled}
+          >
             Log In
           </button>
           <div className="demo">
-            <NavLink to="#">Demo User</NavLink>
+            <button to="#" onClick={loginDemo}>
+              Demo User
+            </button>
           </div>
         </form>
       </div>

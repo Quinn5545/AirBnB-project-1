@@ -49,7 +49,7 @@ export default function SpotDetails() {
     return <div>Loading...</div>;
   }
 
-  //   console.log("spotDetails ------>", spotDetails);
+  console.log("spotDetails ------>", spotDetails);
 
   if (!spotDetails.SpotImages) {
     return <div>Images Loading</div>;
@@ -98,8 +98,17 @@ export default function SpotDetails() {
               <div className="night">night</div>
             </div>
             <div className="stars">
-              <i className="fa-solid fa-star"></i>
-              {spotDetails.avgStarRating} • {spotDetails.numReviews} reviews
+              {!spotDetails.avgStarRating ? (
+                <>
+                  <i className="fa-solid fa-star"></i>
+                  {spotDetails.avgStarRating} • {spotDetails.numReviews} reviews
+                </>
+              ) : (
+                <>
+                  <i className="fa-solid fa-star"></i>
+                  New
+                </>
+              )}
             </div>
           </div>
           <div className="reserve-button">
@@ -119,11 +128,21 @@ export default function SpotDetails() {
 
       <div className="review-box">
         <div className="rev-stars">
-          <i className="fa-solid fa-star"></i>
-          {spotDetails.avgStarRating} • {spotDetails.numReviews} reviews
+          {!spotDetails.avgStarRating ? (
+            <>
+              <i className="fa-solid fa-star"></i>
+              {spotDetails.avgStarRating} • {spotDetails.numReviews} reviews
+            </>
+          ) : (
+            <>
+              <i className="fa-solid fa-star"></i>
+              New
+            </>
+          )}
         </div>
+
         <div className="add-reviews">
-          {sessionUser && (
+          {sessionUser && sessionUser.id === spotDetails.OwnerId && (
             <NavLink to={`#`} className="add-review">
               Create a Review
             </NavLink>
