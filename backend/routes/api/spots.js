@@ -103,7 +103,9 @@ router.get("/", async (req, res) => {
       let totalStars = 0;
       let numReviews = 0;
       spot.SpotImages.forEach((img) => {
-        spot.previewImage = img.url;
+        if (img.preview) {
+          spot.previewImage = img.url;
+        }
       });
       spot.Reviews.forEach((rev) => {
         totalStars += rev.stars;
@@ -234,13 +236,13 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
       });
     }
 
-    const newImage = new SpotImage({
-      spotId,
+    const newImage = await SpotImage.create({
+      spotId: spotId,
       url,
       preview,
     });
 
-    await newImage.save();
+    // await newImage.save();
 
     const responseImage = {
       id: newImage.id,
@@ -428,13 +430,13 @@ router.put("/:spotId", requireAuth, async (req, res) => {
 router.delete("/:spotId", requireAuth, async (req, res) => {
   try {
     const { spotId } = req.params;
-    const ownerId = req.user.id;
+    // const ownerId = req.user.id;
 
     // console.log(req.user.id);
 
     const deletedSpot = await Spot.findByPk(spotId);
 
-    if (deletedSpot.ownerId !== ownerId) {
+    if (deletedSpot.ownerId != req.user.id) {
       console.log(deletedSpot.ownerId);
       // console.log(ownerId);
       return res.status(403).json({

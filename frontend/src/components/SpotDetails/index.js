@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadSpotDetailsThunk } from "../../store/spots";
-import { loadSpotReviewsThunk } from "../../store/reviews";
+import { clearSpotReviews, loadSpotReviewsThunk } from "../../store/reviews";
 import { Link, NavLink } from "react-router-dom";
 import "./SpotDetails.css";
+import CreateReviewModal from "../CreateReviewModal";
+import OpenModalButton from "../OpenModalButton/";
+import DeleteReviewModal from "../DeleteReviewModal";
 
 export default function SpotDetails() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -14,11 +17,11 @@ export default function SpotDetails() {
   const reviews = useSelector((state) => Object.values(state.reviews));
   // console.log("review TOP -->", reviews);
   // console.log(sessionUser);
+  const rev = reviews.find((review) => review.userId === sessionUser?.id);
 
   function formatDate(timestamp) {
     const date = new Date(timestamp);
 
-    // Define month names
     const monthNames = [
       "January",
       "February",
@@ -41,24 +44,36 @@ export default function SpotDetails() {
   }
 
   useEffect(() => {
+    dispatch(clearSpotReviews());
     dispatch(loadSpotDetailsThunk(spotId));
     dispatch(loadSpotReviewsThunk(spotId));
   }, [dispatch, spotId]);
 
   if (!spotDetails) {
-    return <div>Loading...</div>;
+    return null;
   }
 
-  console.log("spotDetails ------>", spotDetails);
+  // console.log("spotDetails ------>", spotDetails);
 
   if (!spotDetails.SpotImages) {
-    return <div>Images Loading</div>;
+    return null;
   }
 
   const largeImageUrl = spotDetails.SpotImages[0]
     ? spotDetails.SpotImages[0].url
     : "";
   const smallerImages = spotDetails.SpotImages.slice(1);
+  const pTrue = spotDetails.SpotImages.find((img) => img.preview === true);
+  const pFalse = spotDetails.SpotImages.filter((img) => !img.preview);
+
+  const sortedReviews = reviews
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+  // console.log(sortedReviews);
 
   return (
     <div>
@@ -72,16 +87,12 @@ export default function SpotDetails() {
       <div className="image-box">
         <div className="large-img-box">
           {largeImageUrl && (
-            <img
-              src={largeImageUrl}
-              key={largeImageUrl}
-              className="large-image"
-            />
+            <img src={pTrue.url} key={largeImageUrl} className="large-image" />
           )}
         </div>
         <div className="smaller-img-box">
-          {smallerImages.map((image) => (
-            <img src={image.url} key={image.id} className="smaller-image" />
+          {pFalse.map((img) => (
+            <img src={img.url} key={img.id} className="smaller-image" />
           ))}
         </div>
       </div>
@@ -98,10 +109,13 @@ export default function SpotDetails() {
               <div className="night">night</div>
             </div>
             <div className="stars">
-              {!spotDetails.avgStarRating ? (
+              {spotDetails.numReviews > 0 ? (
                 <>
                   <i className="fa-solid fa-star"></i>
-                  {spotDetails.avgStarRating} • {spotDetails.numReviews} reviews
+                  {spotDetails.avgStarRating.toFixed(2)} ·{" "}
+                  {spotDetails.numReviews === 1
+                    ? "1 Review"
+                    : `${spotDetails.numReviews} Reviews`}
                 </>
               ) : (
                 <>
@@ -128,10 +142,13 @@ export default function SpotDetails() {
 
       <div className="review-box">
         <div className="rev-stars">
-          {!spotDetails.avgStarRating ? (
+          {spotDetails.numReviews > 0 ? (
             <>
               <i className="fa-solid fa-star"></i>
-              {spotDetails.avgStarRating} • {spotDetails.numReviews} reviews
+              {spotDetails.avgStarRating.toFixed(2)} ·{" "}
+              {spotDetails.numReviews === 1
+                ? "1 Review"
+                : `${spotDetails.numReviews} Reviews`}
             </>
           ) : (
             <>
@@ -142,26 +159,47 @@ export default function SpotDetails() {
         </div>
 
         <div className="add-reviews">
-          {sessionUser && sessionUser.id === spotDetails.OwnerId && (
-            <NavLink to={`#`} className="add-review">
-              Create a Review
-            </NavLink>
+          {sessionUser && sessionUser.id !== spotDetails.ownerId && !rev && (
+            <OpenModalButton
+              modalComponent={<CreateReviewModal spotId={spotId} />}
+              className="add-review"
+              buttonText="Post Your Review"
+            ></OpenModalButton>
           )}
         </div>
-        {reviews.map((review) => (
-          <div key={review.id} className="review">
-            <div className="reviewer-name">{review.User.firstName}</div>
-            <div className="stay-month-year">
-              {formatDate(review.createdAt)}
-            </div>
-            <div className="review-text">{review.review}</div>
-            {sessionUser && sessionUser.id === review.User.id && (
-              <NavLink to={`#`} className="delete-review">
-                Delete Review
-              </NavLink>
-            )}
+        {sortedReviews.length === 0 &&
+        sessionUser &&
+        sessionUser.id !== spotDetails.ownerId ? (
+          <div className="no-reviews-message">
+            Be the first to post a review!
           </div>
-        ))}
+        ) : (
+          sortedReviews.map((review) => (
+            <div key={review.id} className="review">
+              <div className="reviewer-name">
+                <div className="reviewer-name">{review.User?.firstName}</div>
+              </div>
+              <div className="stay-month-year">
+                {formatDate(review.createdAt)}
+              </div>
+              <div className="review-text">{review.review}</div>
+              <div className="reviewer-name">
+                {sessionUser &&
+                  (sessionUser.id === review.User?.id ||
+                    sessionUser.id === review.userId) && (
+                    <div className="delete-review">
+                      <OpenModalButton
+                        buttonText="Delete"
+                        modalComponent={
+                          <DeleteReviewModal reviewId={review.id} />
+                        }
+                      />
+                    </div>
+                  )}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -63,7 +63,7 @@
 
 .price-star {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   /* margin: 10px; */
   width: 100%;
@@ -73,12 +73,13 @@
 .dollars {
   font-size: 24px;
 }
-.price {
+
+.price-star > .price {
   font-size: 24px;
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 
 .stars {
@@ -86,7 +87,8 @@
   padding-top: 5px;
   padding-bottom: 5px;
   display: flex;
-  margin-right: 40px;
+  /* margin-right: 40px; */
+  width: 100%;
 }
 
 .reserve-button {
@@ -141,8 +143,7 @@
   margin-bottom: 10px;
 }
 
-.add-review,
-.delete-review {
+.add-review {
   text-decoration: none;
   display: inline-block;
   padding: 5px 10px;
@@ -154,7 +155,46 @@
   transition: background-color 0.3s;
 }
 
-.add-review:hover,
-.delete-review:hover {
+.add-review:hover {
   background-color: darkred;
+}
+
+.add-reviews button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: orangered;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-reviews button:hover {
+  background-color: darkred;
+}
+
+.delete-review button {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  background-color: orangered;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.delete-review button:hover {
+  background-color: darkred;
+}
+
+.no-reviews-message {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
 }

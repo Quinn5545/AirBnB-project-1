@@ -5,3 +5,103 @@
 #bars {
   padding-right: 5px;
 }
+
+/* ProfileButton.css */
+.profile-button-container {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+.profile-button i {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.profile-text1:hover,
+.profile-text2:hover {
+  background-color: white;
+}
+.profile-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  width: 200px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  list-style-type: none;
+  z-index: 100;
+  position: absolute;
+  margin-right: 10px;
+}
+
+/* .profile-dropdown.hidden {
+  display: none;
+} */
+
+.profile-text1,
+.profile-text2,
+.profile-text3,
+.profile-text4 {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  /* cursor: pointer; */
+  text-decoration: none;
+  color: black;
+}
+
+.manage {
+  text-decoration: none;
+  color: black;
+}
+
+.profile-dropdown button {
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.profile-dropdown button:hover {
+  background-color: #ff4b4b;
+}
+
+.profile-text1,
+.profile-text2,
+.profile-text3,
+.profile-text4 {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-text3:hover {
+  background-color: orangered;
+}
+
+.chicken li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+.chicken li:hover {
+  background-color: orangered;
+  color: white;
+}

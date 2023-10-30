@@ -9,7 +9,6 @@ import "./homePage.css";
 export default function HomePage() {
   const spots = useSelector((state) => Object.values(state.spots));
   const dispatch = useDispatch();
-  //   console.log("spots", spots);
 
   useEffect(() => {
     dispatch(loadSpotsThunk());
@@ -17,28 +16,39 @@ export default function HomePage() {
 
   return (
     <div>
-      <ul className="spot-list">
+      <ul className="home-spot-list">
         {spots.map((spot) => (
-          <li key={spot.id} className="spot-item">
-            <Link to={`/spots/${spot.id}`} className="spot-link">
-              <div className="tooltip">{spot.name}</div>
-              <img
-                className="spot-image"
-                src={spot.previewImage}
-                alt="Spot Image"
-              />
-              <div className="spot-info">
-                <div className="cityState">
+          <li key={spot.id} className="home-spot-item">
+            <Link to={`/spots/${spot.id}`} className="home-spot-link">
+              <div className="image-container">
+                <img
+                  className="home-spot-image"
+                  src={spot.previewImage}
+                  alt="Spot Image"
+                />
+                <span className="tooltip">{spot.name}</span>
+              </div>
+              <div className="home-spot-info">
+                <div className="home-cityState">
                   {spot.city}, {spot.state}
                 </div>
-                <div className="stars">
-                  <i className="fa-solid fa-star"></i>
-                  {spot.avgRating}
+                <div className="home-stars">
+                  {spot.avgRating > 0 ? (
+                    <>
+                      <i className="fa-solid fa-star"></i>
+                      {spot.avgRating.toFixed(2)}
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-star"></i>
+                      New
+                    </>
+                  )}
                 </div>
               </div>
 
-              <div className="price-night">
-                <div className="price">${spot.price}/night </div>
+              <div className="home-price-night">
+                <div className="home-price">${spot.price} night </div>
               </div>
             </Link>
           </li>

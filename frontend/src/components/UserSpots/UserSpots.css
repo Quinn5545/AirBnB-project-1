@@ -1,0 +1,167 @@
+.spot-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 1024px;
+  justify-content: space;
+  align-content: center;
+  align-items: center;
+}
+
+.spot-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.spot-link:hover {
+  color: orangered;
+  cursor: pointer;
+  border: 1px solid orangered;
+}
+
+.spot-image {
+  width: 225px;
+  height: 200px;
+  display: block;
+  margin: 0;
+}
+
+.spot-link {
+  color: black;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid transparent;
+  transition: border 0.3s;
+  transition: color 0.3s;
+}
+
+.spot-info {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cityState {
+  font-size: 14px;
+  display: flex;
+}
+.user-spot-stars {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.price-night {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+
+.price {
+  font-size: 14px;
+  display: flex;
+}
+
+.fa-solid.fa-star {
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+.spot-link .tooltip {
+  visibility: hidden;
+  background-color: orangered;
+  color: #fff;
+  text-align: justify;
+  position: absolute;
+  top: 0.5rem;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.spot-link:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.top-box {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.manage-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.create {
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.new-spot-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: orangered;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.new-spot-button:hover {
+  background-color: darkred;
+}
+
+.button-box {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.update-button,
+.delete-modal button {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background-color: orangered;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.update-link {
+  text-decoration: none;
+}
+
+.update-button:hover,
+.delete-mo:hover {
+  background-color: darkred;
+}
+
+@media (max-width: 768px) {
+  .spot-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .spot-list {
+    grid-template-columns: 1fr;
+  }
+}

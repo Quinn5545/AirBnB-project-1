@@ -1,34 +1,47 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createImageThunk, createSpotThunk } from "../../store/spots";
-import "./CreateNewSpot.css";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createImageThunk,
+  createSpotThunk,
+  loadSpotDetailsThunk,
+  updateSpotThunk,
+} from "../../store/spots";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
-export default function CreateNewSpot() {
+import "./UpdateSpot.css";
+
+export default function UpdateSpot() {
+  const { spotId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
-  const [img1, setImg1] = useState("");
-  const [img2, setImg2] = useState("");
-  const [img3, setImg3] = useState("");
-  const [img4, setImg4] = useState("");
+  const spot = useSelector((state) => state.spots[spotId]);
+
+  const [name, setName] = useState(spot?.name);
+  const [address, setAddress] = useState(spot?.address);
+  const [city, setCity] = useState(spot?.city);
+  const [latitude, setLatitude] = useState(spot?.latitude);
+  const [longitude, setLongitude] = useState(spot?.longitude);
+  const [state, setState] = useState(spot?.state);
+  const [country, setCountry] = useState(spot?.country);
+  const [description, setDescription] = useState(spot?.description);
+  const [price, setPrice] = useState(spot?.price);
+  const [previewImage, setPreviewImage] = useState(spot?.previewImage);
+  const [img1, setImg1] = useState(spot?.img1);
+  const [img2, setImg2] = useState(spot?.img2);
+  const [img3, setImg3] = useState(spot?.img3);
+  const [img4, setImg4] = useState(spot?.img4);
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    dispatch(loadSpotDetailsThunk(spotId));
+  }, [dispatch, spotId]);
 
-    const newErrors = {};
-
+  const newErrors = {};
+  useEffect(() => {
     // error checkers
     if (!country) newErrors.country = "Country is required";
     if (!address) newErrors.address = "Address is required";
@@ -48,21 +61,67 @@ export default function CreateNewSpot() {
     if (!price || price < 0) newErrors.price = "Price is required";
     if (!previewImage) newErrors.previewImage = "Preview image is required";
     if (
+      img1 &&
       !img1.endsWith(".jpg") &&
       !img1.endsWith(".png") &&
-      !img1.endsWith(".jpeg") &&
+      !img1.endsWith(".jpeg")
+    ) {
+      newErrors.img1 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    if (
+      img2 &&
       !img2.endsWith(".jpg") &&
       !img2.endsWith(".png") &&
-      !img2.endsWith(".jpeg") &&
+      !img2.endsWith(".jpeg")
+    ) {
+      newErrors.img2 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    if (
+      img3 &&
       !img3.endsWith(".jpg") &&
       !img3.endsWith(".png") &&
-      !img3.endsWith(".jpeg") &&
+      !img3.endsWith(".jpeg")
+    ) {
+      newErrors.img3 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    if (
+      img4 &&
       !img4.endsWith(".jpg") &&
       !img4.endsWith(".png") &&
       !img4.endsWith(".jpeg")
     ) {
-      newErrors.img1 = "Image URL must end in .png, .jpg, or .jpeg";
+      newErrors.img4 = "Image URL must end in .png, .jpg, or .jpeg";
     }
+  }, [
+    name,
+    address,
+    city,
+    latitude,
+    longitude,
+    state,
+    country,
+    description,
+    price,
+    previewImage,
+    img1,
+    img2,
+    img3,
+    img4,
+  ]);
+
+  // if (!spot.SpotImages) return null;
+
+  // const prevImg = spot?.SpotImages.filter((pImg) => pImg?.preview);
+  // const otherImgs = spot?.SpotImages.filter((img) => img?.preview === false);
+
+  // if (!prevImg || !otherImgs) {
+  //   return null;
+  // }
+  // console.log(prevImg);
+  // console.log(otherImgs);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -87,17 +146,14 @@ export default function CreateNewSpot() {
 
       console.log("Spot data to be submitted:", dataObj);
 
-      const res = await dispatch(createSpotThunk(dataObj));
+      const res = await dispatch(updateSpotThunk(spotId, dataObj));
 
-      await dispatch(createImageThunk(res.id, previewImage, true));
-
-      await dispatch(createImageThunk(res.id, img1, false));
-      await dispatch(createImageThunk(res.id, img2, false));
-      await dispatch(createImageThunk(res.id, img3, false));
-      await dispatch(createImageThunk(res.id, img4, false));
+      if (res) {
+        await dispatch(loadSpotDetailsThunk(spotId));
+        history.push(`/spots/${spotId}`);
+      }
 
       // console.log("res ------>", res);
-      history.push(`/spots/${res.id}`);
     }
   };
 
@@ -105,7 +161,7 @@ export default function CreateNewSpot() {
     <div className="create-new-spot">
       <form onSubmit={handleSubmit} className="form-box">
         <div className="top-tips1">
-          <div className="title1">Create a new Spot</div>
+          <div className="title1">Update Your Spot</div>
           <div className="title2">Where's your place located?</div>
           <div className="title3">
             Guests will only get your exact address once they booked a
@@ -356,7 +412,7 @@ export default function CreateNewSpot() {
         </div>
 
         <button type="submit" className="submit-button">
-          Create Spot
+          Update Your Spot
         </button>
       </form>
     </div>

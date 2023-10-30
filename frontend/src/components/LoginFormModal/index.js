@@ -30,7 +30,7 @@ function LoginFormModal() {
     setPassword("password0");
   };
 
-  const isLoginButtonDisabled = !credential || !password;
+  const isLoginButtonDisabled = credential.length < 4 || password.length < 6;
 
   return (
     <>
